@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pretask3-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pretask3-app
+  template:
+    metadata:
+      labels:
+        app: pretask3-app
+    spec:
+      containers:
+        - name: pretask3-app
+          image: pretask3-app:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5050
+          env:
+            - name: INSTANCE_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
